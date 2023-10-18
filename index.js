@@ -87,18 +87,20 @@ var finances = [
   ['Feb-2017', 671099],
 ];
 
-var totalMonths = finances.length;
+//Variables
+var totalMonths = finances.length; //finds total months via the length of the array as each tuple inside accounts for a month
 var profits = 0;
-var bgstIncrease = 0;
+var bgstIncrease = 0; //Could combine into an array but its unneccessary
 var bgstIncreaseMonth = "";
 var bgstDecrease = 0;
 var bgstDecreaseMonth = "";
 var totalChange = 0;
 var change = 0;
 
+//looping through array
 for(var i=0; i<totalMonths; i++){
-  profits += finances[i][1];
-
+  profits += finances[i][1]; 
+  //Ensures that it is not the first month as there is no previous month therfore i-1 would lead to an out of index error
   if(i > 0){
     change = finances[i][1] - finances[i-1][1];
     totalChange += change;
@@ -112,12 +114,15 @@ for(var i=0; i<totalMonths; i++){
     }
   }
 }
+
 var average = (totalChange) / (totalMonths-1);
+
 alert(`Total Months: ${totalMonths}
 Total: $${profits}
 Average Change: $${Math.round(average*100)/100}
 Greatest Increase in Profits/Losses: ${bgstIncreaseMonth} ($${bgstIncrease})
 Greatest Decrease in Profits/Losses: ${bgstDecreaseMonth} ($${bgstDecrease})`);
+//backup if alert is non-functioning
 console.log(`Total Months: ${totalMonths}
 Total: $${profits}
 Average Change: $${Math.round(average*100)/100}
