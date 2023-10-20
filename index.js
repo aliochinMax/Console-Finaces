@@ -1,4 +1,4 @@
-var finances = [
+var finances = [ //data array
   ['Jan-2010', 867884],
   ['Feb-2010', 984655],
   ['Mar-2010', 322013],
@@ -87,24 +87,37 @@ var finances = [
   ['Feb-2017', 671099],
 ];
 
-//Variables
+//Variables, named camelCase, any shorthand should be explained on first use
 var totalMonths = finances.length; //finds total months via the length of the array as each tuple inside accounts for a month
 var profits = 0;
-var bgstIncrease = 0; //Could combine into an array but its unneccessary
-var bgstIncreaseMonth = "";
+var bgstIncrease = 0; //bgst is shorthand for Biggest
+var bgstIncreaseMonth = ""; //Month of the biggest increase from one month to the other
 var bgstDecrease = 0;
 var bgstDecreaseMonth = "";
-var totalChange = 0;
+var totalChange = 0; //differs from profits, as this tracks changes from month to month not just the total 
 var change = 0;
+var average = 0; //average change, unneccessary however cleans up info() a little
 
-//looping through array
+//Function used as we're displaying this info twice, once as an alert and another time as a console log
+function info(){
+  return`
+  Total Months: ${totalMonths}
+  Total: $${profits}
+  Average Change: $${Math.round(average*100)/100} 
+  Greatest Increase in Profits/Losses: ${bgstIncreaseMonth} ($${bgstIncrease})
+  Greatest Decrease in Profits/Losses: ${bgstDecreaseMonth} ($${bgstDecrease})`;
+}
+
+
+
+//looping through finances array
 for(var i=0; i<totalMonths; i++){
   profits += finances[i][1]; 
   //Ensures that it is not the first month as there is no previous month therfore i-1 would lead to an out of index error
   if(i > 0){
     change = finances[i][1] - finances[i-1][1];
     totalChange += change;
-    if(change < 0 && change < bgstDecrease){
+    if(change < 0 && change < bgstDecrease){ //Checks if its a decrease and if it's the largest decrease
       bgstDecrease = change;
       bgstDecreaseMonth = finances[i][0];
     }
@@ -115,16 +128,9 @@ for(var i=0; i<totalMonths; i++){
   }
 }
 
-var average = (totalChange) / (totalMonths-1);
+average = (totalChange) / (totalMonths-1); //calculates average change 
 
-alert(`Total Months: ${totalMonths}
-Total: $${profits}
-Average Change: $${Math.round(average*100)/100}
-Greatest Increase in Profits/Losses: ${bgstIncreaseMonth} ($${bgstIncrease})
-Greatest Decrease in Profits/Losses: ${bgstDecreaseMonth} ($${bgstDecrease})`);
-//backup if alert is non-functioning
-console.log(`Total Months: ${totalMonths}
-Total: $${profits}
-Average Change: $${Math.round(average*100)/100}
-Greatest Increase in Profits/Losses: ${bgstIncreaseMonth} ($${bgstIncrease})
-Greatest Decrease in Profits/Losses: ${bgstDecreaseMonth} ($${bgstDecrease})`);
+//displaying results
+alert(info());
+//backup if alert is non-functioning or
+console.log(info());
